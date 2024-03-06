@@ -1,5 +1,5 @@
 """
-ASGI config for GoIT_h10_django project.
+ASGI config for goit_h10_django project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GoIT_h10_django.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "goit_h10_django.settings")
 
 application = get_asgi_application()

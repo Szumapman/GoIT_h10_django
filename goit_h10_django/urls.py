@@ -1,5 +1,5 @@
 """
-URL configuration for GoIT_h10_django project.
+URL configuration for goit_h10_django project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
