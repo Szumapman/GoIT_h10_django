@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "goit-h10-django"
+version = "0.1.0"
+description = ""
+authors = ["Paweł Szumański <pawel.szumanski@tuta.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
