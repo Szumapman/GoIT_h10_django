@@ -1,5 +1,8 @@
 <p>
-    <a href="{% url 'quotes_app:index' %}">Home</a>
+    <a href="{% url 'quotes_app:index' %}">Home</a> - 
+    <a href="{% url 'quotes_app:new_author' %}">Add author</a> - 
+    <a href="{% url 'quotes_app:new_quote' %}">Add quote</a> - 
+    <a href="{% url 'quotes_app:new_tag' %}">Add tag</a> -
 </p>
 {% if user.is_authenticated %}
 <p>Welcome {{ user.username }}!</p>
