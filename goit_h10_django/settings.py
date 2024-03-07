@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     "quotes_app",
-    
+    "users",
     # default django apps
     "django.contrib.admin",
     "django.contrib.auth",
