@@ -1,0 +1,10 @@
+{% extends "quotes_app/base.html" %} 
+
+{% block content %}
+  <h1>Add new author</h1>
+  <form action="{% url 'quotes_app:new_author' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add author</button>
+  </form>
+{% endblock content %}
