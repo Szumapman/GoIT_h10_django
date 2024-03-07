@@ -4,8 +4,8 @@ from .models import Author, Quote, Tag
 
 class AuthorForm(ModelForm):
     name = CharField(max_length=200, required=True, widget=TextInput())
-    born_date = DateField()
-    born_location = CharField(max_length=200)
+    born_date = DateField(required=False)
+    born_location = CharField(max_length=200, required=False)
     descryption = Textarea()
 
     class Meta:
