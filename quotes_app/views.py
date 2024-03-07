@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from .models import Author, Quote, Tag
 from .forms import AuthorForm, TagForm, QuoteForm
@@ -15,6 +16,7 @@ def author(request, author_id):
     return render(request, "quotes_app/about.html", context)
 
 
+@login_required
 def new_author(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
@@ -28,6 +30,7 @@ def new_author(request):
     return render(request, "quotes_app/new_author.html", {"form": AuthorForm()})
 
 
+@login_required
 def new_tag(request):
     if request.method == "POST":
         form = TagForm(request.POST)
@@ -41,6 +44,7 @@ def new_tag(request):
     return render(request, "quotes_app/new_tag.html", {"form": TagForm()})
 
 
+@login_required
 def new_quote(request):
     tags = Tag.objects.all()
     authors = Author.objects.all()
