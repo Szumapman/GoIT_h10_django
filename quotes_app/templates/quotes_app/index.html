@@ -1,1 +1,20 @@
-<p>Quotes App</p>
+{% extends "quotes_app/base.html" %} 
+{% load extract_tags %}
+
+{% block content %}
+  <p>Quotes:</p>
+  <ul>
+    {% for quote in quotes %}
+      <li>{{ quote.quote }}</li>
+      <li>{{ quote.author }} <a href="{% url 'quotes_app:author' quote.author.id %}">about</a></li>
+      <div>Tags:
+      {% for tag in quote.tags|tags %}
+        <a>{{ tag }}</a>
+      {% endfor %}
+      </div>
+      <li> --- </li>
+    {% empty %}
+      <li>No quotes are available.</li>
+      <li>Please add some quotes.</li>
+    {% endfor %}
+{% endblock content %}
