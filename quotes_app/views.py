@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 from .models import Author, Quote, Tag
 from .forms import AuthorForm, TagForm, QuoteForm
+from .data_scraper import get_data
 
 # Create your views here.
 def index(request):
@@ -65,3 +68,25 @@ def new_quote(request):
         
     context = {"form": QuoteForm(), "tags": tags, "authors": authors}
     return render(request, "quotes_app/new_quote.html", context)
+
+
+@login_required
+def scrape_data(request):
+    quotes, authors = get_data()
+    for author in authors:
+        author_object = Author.objects.get_or_create(
+            name=author["fullname"], 
+            born_date=datetime.strptime(author["born_date"], "%B %d, %Y").date(), 
+            born_location=author["born_location"], 
+            descryption=author["description"])
+        for quote in quotes:
+            if quote["author"] == author["fullname"]:
+                quote_object = Quote.objects.get_or_create(
+                    quote=quote["quote"],
+                    author=author_object[0])
+                for tag in quote["tags"]:
+                    tag_object = Tag.objects.get_or_create(name=tag)
+                    quote_object[0].tags.add(tag_object[0])
+                quote_object[0].save()
+                
+    return redirect(to="quotes_app:index")
