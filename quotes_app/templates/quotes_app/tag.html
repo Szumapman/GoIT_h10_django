@@ -1,0 +1,11 @@
+{% extends "quotes_app/base.html" %} 
+
+{% block content %}
+  <h1>Tag</h1>
+  <form action="{% url 'quotes_app:new_tag' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <span>{{ form.errors.name }}</span>
+    <button type="submit">Save</button>
+  </form>
+{% endblock content %}
