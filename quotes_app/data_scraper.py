@@ -40,9 +40,15 @@ class QuotesAuthorsSpider(scrapy.Spider):
             yield scrapy.Request(
                 url=self.start_urls[0] + about_url, callback=self.parse
             )
+    
+    def closed(self, reason):
+        self.log(f"Spider finished scraping data and closed.")
+        self.crawler.engine.close_spider(self, "Data scraped successfully.")
 
 
 def get_data():
+    if QUOTES_AUTHORS["authors"] or QUOTES_AUTHORS["quotes"]:
+        return QUOTES_AUTHORS["quotes"], QUOTES_AUTHORS["authors"]
     process = CrawlerProcess()
     process.crawl(QuotesAuthorsSpider)
     process.start()
