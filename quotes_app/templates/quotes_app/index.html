@@ -13,7 +13,7 @@
       <li>{{ quote.author }} <a href="{% url 'quotes_app:author' quote.author.id %}">about</a></li>
       <div>Tags:
       {% for tag in quote.tags|tags %}
-        <a>{{ tag }}</a>
+        <a href={% url 'quotes_app:tag_quotes' tag.id %}>{{ tag }}</a>
       {% endfor %}
       </div>
       {% if user.is_authenticated%}
