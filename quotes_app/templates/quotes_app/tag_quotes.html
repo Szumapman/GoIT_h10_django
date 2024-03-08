@@ -2,12 +2,7 @@
 {% load extract_tags %}
 
 {% block content %}
-  <p>Quotes:</p>
-  <p>Top ten tags:</p>
-  {% for tag in top_tags %}
-    <a href={% url 'quotes_app:tag_quotes' tag.id %}>{{ tag.name }}</a>
-  {% endfor %}
-  <ul>
+<ul>
     {% for quote in page_obj %}
       <li>{{ quote.quote }}</li>
       <li>{{ quote.author }} <a href="{% url 'quotes_app:author' quote.author.id %}">about</a></li>

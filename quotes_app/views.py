@@ -93,6 +93,16 @@ def edit_tag(request, tag_id):
     return render(request, "quotes_app/tag.html", {"form": TagForm(instance=tag)})
 
 
+def tag_quotes(request, tag_id):
+    tag = get_object_or_404(Tag, pk=tag_id)
+    quotes = Quote.objects.filter(tags__name__in=[tag.name])
+    paginator = Paginator(quotes, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"tag": tag, "page_obj": page_obj}
+    return render(request, "quotes_app/tag_quotes.html", context)
+
+
 @login_required
 def new_quote(request):
     tags = Tag.objects.all()
