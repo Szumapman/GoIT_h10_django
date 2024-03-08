@@ -5,4 +5,10 @@
  <p> {% if author.born_date %} {{ author.born_date }} {% endif %}</p>
  <p> {{ author.born_location }} </p>
  <p> {{ author.descryption }} </p>
+ {% if user.is_authenticated %}
+ <p>
+    <a href="{% url 'quotes_app:edit_author' author.id %}">Edit</a> - 
+    <a href="{% url 'quotes_app:delete_author' author.id %}">Delete</a>
+ </p>
+ {% endif %}
 {% endblock content %}
