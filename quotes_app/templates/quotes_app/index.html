@@ -3,8 +3,12 @@
 
 {% block content %}
   <p>Quotes:</p>
+  <p>Top ten tags:</p>
+  {% for tag in top_tags %}
+    <a>{{ tag.name }}</a>
+  {% endfor %}
   <ul>
-    {% for quote in quotes %}
+    {% for quote in page_obj %}
       <li>{{ quote.quote }}</li>
       <li>{{ quote.author }} <a href="{% url 'quotes_app:author' quote.author.id %}">about</a></li>
       <div>Tags:
@@ -12,9 +16,25 @@
         <a>{{ tag }}</a>
       {% endfor %}
       </div>
+      {% if user.is_authenticated%}
+      <li>
+        <a href="{% url 'quotes_app:edit_quote' quote.id %}">edit</a> - 
+        <a href="{% url 'quotes_app:delete_quote' quote.id %}">delete</a>
+      </li>
+      {% endif %}
       <li> --- </li>
     {% empty %}
       <li>No quotes are available.</li>
       <li>Please add some quotes.</li>
     {% endfor %}
+
+    {% if page_obj.has_previous %}
+      <a href="?page=1">&laquo; First</a>
+      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+
 {% endblock content %}
