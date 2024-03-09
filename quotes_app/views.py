@@ -34,7 +34,7 @@ def new_author(request):
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
-            return index(request)
+            return redirect(reverse("quotes_app:index"))
         else:
             context = {"form": form}
             return render(request, "quotes_app/author.html", context)
@@ -48,8 +48,14 @@ def edit_author(request, author_id):
     if request.method == "POST":
         form = AuthorForm(request.POST, instance=author)
         if form.is_valid():
-            form.save()
-            return index(request)
+            author_to_save = Author.objects.get(pk=author_id)
+            author_to_save.name = form.cleaned_data["name"]
+            print(author_to_save.name, author_to_save.id)
+            author_to_save.born_date = form.cleaned_data["born_date"]
+            author_to_save.born_location = form.cleaned_data["born_location"]
+            author_to_save.descryption = form.cleaned_data["descryption"]
+            author_to_save.save()
+            return redirect(reverse("quotes_app:index"))
         else:
             context = {"form": form}
             return render(request, "quotes_app/author.html", context)
@@ -69,8 +75,11 @@ def new_tag(request):
     if request.method == "POST":
         form = TagForm(request.POST)
         if form.is_valid():
-            form.save()
-            return index(request)
+            tag_name = form.cleaned_data["name"].lower()
+            tag_obj = form.save(commit=False)
+            tag_obj.name = tag_name
+            tag_obj.save()
+            return redirect(reverse("quotes_app:index"))
         else:
             context = {"form": form}
             return render(request, "quotes_app/tag.html", context)
@@ -81,11 +90,16 @@ def new_tag(request):
 @login_required
 def edit_tag(request, tag_id):
     tag = get_object_or_404(Tag, pk=tag_id)
+    
     if request.method == "POST":
         form = TagForm(request.POST, instance=tag)
+        print(tag.name, tag.id)
         if form.is_valid():
-            form.save()
-            return index(request)
+            tag_name = form.cleaned_data["name"].lower()
+            tag.name = tag_name
+            tag.save()
+            print(tag.name, tag.id)
+            return redirect(reverse("quotes_app:index"))
         else:
             context = {"form": form}
             return render(request, "quotes_app/tag.html", context)
@@ -94,13 +108,29 @@ def edit_tag(request, tag_id):
 
 
 def tag_quotes(request, tag_id):
-    tag = get_object_or_404(Tag, pk=tag_id)
-    quotes = Quote.objects.filter(tags__name__in=[tag.name])
+    viewing_tag = get_object_or_404(Tag, pk=tag_id)
+    quotes = Quote.objects.filter(tags__name__in=[viewing_tag.name])
     paginator = Paginator(quotes, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {"tag": tag, "page_obj": page_obj}
-    return render(request, "quotes_app/tag_quotes.html", context)
+    top_tags = Tag.objects.annotate(num_quotes=Count('quote')).order_by('-num_quotes')[:10]
+    context = {"viewing_tag": viewing_tag, "page_obj": page_obj, "top_tags": top_tags}
+    return render(request, "quotes_app/index.html", context)
+
+
+def search_tag(request):
+    query_value = request.GET.get("q").lower()
+    if Tag.objects.filter(name=query_value).exists():
+        tag = Tag.objects.get(name=query_value)
+        return tag_quotes(request, tag.id)
+    else:
+        close_up_tags = Tag.objects.filter(name__icontains=query_value)
+        print(close_up_tags)
+        context = {"close_up_tags": close_up_tags, "query_value": query_value}
+        return render(request, "quotes_app/search_tag.html", context)
+        
+
+    
 
 
 @login_required
