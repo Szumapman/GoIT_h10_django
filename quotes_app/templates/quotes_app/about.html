@@ -1,9 +1,9 @@
 {% extends "quotes_app/base.html" %} 
 
 {% block content %}
- <p> {{ author.name }} </p>
- <p> {% if author.born_date %} {{ author.born_date }} {% endif %}</p>
- <p> {{ author.born_location }} </p>
+ <h2> {{ author.name }} </h2>
+ <p><b>Born:</b> {{ author.born_date }} {{ author.born_location }}</p>
+ <p><b>Descryption:</b></p>
  <p> {{ author.descryption }} </p>
  {% if user.is_authenticated %}
  <p>
