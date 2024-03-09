@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from .forms import RegisterForm, LoginForm
 
@@ -31,7 +32,7 @@ def loginuser(request):
             return redirect(to="users:login")
         
         login(request, user)
-        return redirect("quotes_app:index")
+        return redirect(reverse("quotes_app:index"))
     
     return render(request, "users/login.html", context={"form": LoginForm()})
             
@@ -39,4 +40,4 @@ def loginuser(request):
 @login_required
 def logoutuser(request):
     logout(request)
-    return redirect("quotes_app:index")
+    return redirect(reverse("quotes_app:index"))
