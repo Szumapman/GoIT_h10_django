@@ -22,9 +22,13 @@ class TagForm(ModelForm):
 
 class QuoteForm(ModelForm):
     quote = Textarea()
+     
     
 
     class Meta:
         model = Quote
+        widgets = {
+            'quote': Textarea(attrs={'rows': 10, 'cols': 80, 'style': 'width: 100%'}),  
+        }
         fields = ["quote"]
         exclude = ["author", "tags"]
