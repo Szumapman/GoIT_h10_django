@@ -1,35 +1,15 @@
 {% extends "quotes_app/base.html" %}
+{% load django_bootstrap5 %}
 
-{% block content %}
-  <div>
-    <h2>Register</h2>
-  </div>
+{% block title %}
+  <h2>Register</h2>
+{% endblock title %}
 
+{% block content %} 
   <form method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
-    <div>
-        <label> Username:
-            {{ form.username }}
-        </label>
-        <span>{{ form.errors.username }}</span>
-    </div>
-    <br>
-    <div>
-        <label> Password:
-            {{ form.password1 }}
-        </label>
-        <span>{{ form.errors.password1 }}</span>
-    </div>
-    <div>
-        <label> Password confirmation:
-            {{ form.password2 }}
-        </label>
-        <span>{{ form.errors.password2 }}</span>
-    </div>
-    <div class="grid">
-        <button type="submit">Register</button>
-        <button type="reset" class="secondary">Reset</button>
-    </div>
-</form>
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="Register" %}
+  </form>
 
 {% endblock %}
