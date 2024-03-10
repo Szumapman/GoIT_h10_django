@@ -52,27 +52,3 @@
         </main>
       </body>
     </html>
-    
-
-
-{% comment %} <p>
-    <a href="{% url 'quotes_app:index' %}">Home</a> - 
-</p>
-{% if user.is_authenticated %}
-<p>Welcome {{ user.username }}!</p>
-<p>
-    <a href="{% url 'users:logout' %}">Logout</a>
-</p>
-<p>
-  <a href="{% url 'quotes_app:new_author' %}">Add author</a> - 
-  <a href="{% url 'quotes_app:new_quote' %}">Add quote</a> - 
-  <a href="{% url 'quotes_app:new_tag' %}">Add tag</a> -
-  <a href="{% url 'quotes_app:scrape_data' %}">Fill in databese</a>
-</p>
-{% else %}
-<p>
-    <a href="{% url 'users:register' %}">Register</a> - 
-    <a href="{% url 'users:login' %}">Login</a>
-</p>
-{% endif %}
-{% block content %}{% endblock content %} {% endcomment %}
