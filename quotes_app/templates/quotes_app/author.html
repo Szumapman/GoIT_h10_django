@@ -6,7 +6,11 @@
 {% endblock title %} 
 
 {% block content %}
-  <form action="{% url 'quotes_app:new_author' %}" method="post">
+  {% if author %}
+    <form action="{% url 'quotes_app:edit_author' author.id %}" method="post">
+  {% else %}
+    <form action="{% url 'quotes_app:new_author' %}" method="post">
+  {% endif %}
     {% csrf_token %}
     {% bootstrap_form form %}
     {% bootstrap_button button_type="submit" content="Save" %}

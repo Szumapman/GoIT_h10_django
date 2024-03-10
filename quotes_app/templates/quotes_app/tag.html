@@ -6,7 +6,11 @@
 {% endblock title %} 
 
 {% block content %}
-  <form action="{% url 'quotes_app:new_tag' %}" method="post">
+  {% if tag %}
+    <form action="{% url 'quotes_app:edit_tag' tag.id %}" method="post">
+  {% else %}
+    <form action="{% url 'quotes_app:new_tag' %}" method="post">
+  {% endif %}
     {% csrf_token %}
     {% bootstrap_form form %}
     {% bootstrap_button button_type="submit" content="Save" %}
