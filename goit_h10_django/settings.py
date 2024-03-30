@@ -87,12 +87,12 @@ WSGI_APPLICATION = "goit_h10_django.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': env('DATABASE_ENGINE'),
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        "ENGINE": env("DATABASE_ENGINE"),
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
+        "PORT": env("DATABASE_PORT"),
     }
 }
 
@@ -142,9 +142,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = int(env("EMAIL_PORT"))
-EMAIL_STARTTLS = bool(env("EMAIL_STARTTLS"))
-EMAIL_USE_SSL = bool(env("EMAIL_USE_SSL"))
-EMAIL_USE_TLS = bool(env("EMAIL_USE_TLS"))
+EMAIL_STARTTLS = int(env("EMAIL_STARTTLS"))
+EMAIL_USE_SSL = int(env("EMAIL_USE_SSL"))
+EMAIL_USE_TLS = int(env("EMAIL_USE_TLS"))
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
