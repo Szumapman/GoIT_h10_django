@@ -1,4 +1,13 @@
-### GoIT moduł 2 web 
+### GoIT moduł 2 web
+# Zadanie domowe #13 (cześć druga - dotycząca Django)
+Twoim zadaniem jest udoskonalenie aplikacji Django z zadania domowego nr 10.
+### Zadania
+- Zaimplementuj mechanizm resetowania hasła dla zarejestrowanego użytkownika;
+- Wszystkie zmienne środowiskowe używane w pliku `setting.py` powinny być przechowywane w pliku `.env`.
+
+> [!TIP]
+> Przed uruchomieniem programu należy utworzyć plik `.env`, zgodnie z dołączonym do projektu wzorcowym plikiem: `env`
+
 # Zadanie domowe #10
 
 W poprzednim zadaniu domowym wykonałeś scraping strony [http://quotes.toscrape.com](http://quotes.toscrape.com).
