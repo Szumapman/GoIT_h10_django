@@ -6,9 +6,17 @@
 {% endblock title %}
 
 {% block content %}
+    <div>
+        {% for message in messages %}
+          <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
     <form action="{% url 'users:login' %}" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% bootstrap_button button_type="submit" content="Login" %}
     </form>
+    <div class="small text-center">
+        <a href="{% url "users:password_reset" %}" class="text-center"><i>Forgot Password?</i></a>
+    </div>
 {% endblock content %}
