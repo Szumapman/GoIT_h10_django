@@ -44,8 +44,3 @@ def loginuser(request):
 def logoutuser(request):
     logout(request)
     return redirect(reverse("quotes_app:index"))
-
-
-@login_required
-def profile(request):
-    return render(request, "users/profile.html")
